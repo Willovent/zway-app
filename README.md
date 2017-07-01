@@ -7,7 +7,7 @@ This project aim to create a simple responsive application to use [Z-Way](https:
 * [Angular](https://github.com/angular/angular) 
 * [Angular Material](https://github.com/angular/material)
 
-## next steps
+## Next steps
 
 * Use Zway authentication
 * Save multiple configuration (home/local)
