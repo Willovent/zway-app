@@ -1,0 +1,4 @@
+<ng-container [ngSwitch]="device.deviceType">
+  <app-toggle-device [device]="device" *ngSwitchCase="'toggleButton'"></app-toggle-device>
+  <app-switch-device [device]="device" *ngSwitchCase="'switchBinary'"></app-switch-device>
+</ng-container>
