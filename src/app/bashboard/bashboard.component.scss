@@ -1,6 +1,3 @@
-:host{
-    background: blue;
-}
 .app-icon-button {
   box-shadow: none;
   user-select: none;
@@ -16,13 +13,27 @@
   padding: 0;
   text-align: left;
   text-decoration: none;
+   color: white;
 }
 
 .app-toolbar-menu{
   padding: 0 14px 0 0;
-    color: white;
 }
 
 .mat-sidenav-container{
   min-height: 100vh;
+}
+ md-toolbar{
+   -webkit-app-region: drag;
+   button, md-icon{
+      -webkit-app-region: no-drag;
+   }
+ }
+
+ .app-toolbar-filler{
+   flex: 1 1 auto;
+ }
+
+md-sidenav-container .mat-sidenav-backdrop.mat-sidenav-shown {
+    background: rgba(189, 189, 189, 0.3)!important;
 }

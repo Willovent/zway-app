@@ -28,7 +28,7 @@ export interface Metric {
   lastLevel: string;
 }
 
-export interface Device {
+export class Device {
   deviceType: string;
   id: string;
   metrics: Metric;

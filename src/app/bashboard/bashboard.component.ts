@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
 import { ZwayService, Device } from '../zway.service';
+import { SettingsService } from 'app/settings.service';
 
 @Component({
   selector: 'app-bashboard',
@@ -11,14 +11,20 @@ import { ZwayService, Device } from '../zway.service';
 export class BashboardComponent implements OnInit {
 
   devices: Device[];
-  constructor(private authenticationService: AuthenticationService, private router: Router, private zwayService: ZwayService) { }
+  constructor(private settingsService: SettingsService, private router: Router, private zwayService: ZwayService) { }
 
   ngOnInit() {
-    if (!this.authenticationService.isAuthenticate()) {
+    if (!this.settingsService.hasConfiguration) {
       this.router.navigate(['login']);
     } else {
       this.zwayService.getDevice().subscribe(x => this.devices = x);
     }
+  }
+
+  close() {
+    const remote = (<any>window).require('electron').remote;
+    const curWin = remote.getCurrentWindow();
+    curWin.close();
   }
 
 }

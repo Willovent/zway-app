@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   save() {
-    this.settingsService.saveServer(this.serverUrl);
+    this.settingsService.addConfiguration('defaultName', this.serverUrl, this.login, this.password);
     this.authenticationService.login(this.login, this.password);
   }
 }
