@@ -19,6 +19,12 @@ export class LoginComponent implements OnInit {
   }
 
   save() {
+    if (!this.serverUrl.startsWith('http://') && !this.serverUrl.startsWith('https://')) {
+      this.serverUrl = `http://${this.serverUrl}`;
+    }
+    if (!this.serverUrl.match(/:\d/)) {
+      this.serverUrl += ':8083';
+    }
     this.settingsService.addConfiguration('defaultName', this.serverUrl, this.login, this.password);
     this.authenticationService.login(this.login, this.password);
   }

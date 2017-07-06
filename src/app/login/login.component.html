@@ -1,6 +1,31 @@
-<form (ngSubmit)="save()">
-  <input name="login" type="text" placeholder="Login" [(ngModel)]="login" />
-  <input name="password" type="password" placeholder="Password" [(ngModel)]="password" />
-  <input name="serverUrl" type="url" placeholder="Addresse du serveur ZWay" [(ngModel)]="serverUrl" />
-  <button>Valider</button>
-</form>
+<md-sidenav-container>
+  <md-toolbar color="primary">
+    House Ovent Dashboard
+    <span class="app-toolbar-filler"></span>
+    <button class="app-icon-button"><md-icon (click)="close()">close</md-icon></button>
+  </md-toolbar>
+  <div class="app-content">
+    <form (ngSubmit)="save()" class="example-form">
+
+      <p>
+        <md-input-container class="example-full-width">
+          <input required mdInput placeholder="Login" name="login" [(ngModel)]="login">
+        </md-input-container>
+      </p>
+      <p>
+
+        <md-input-container class="example-full-width">
+          <input required mdInput placeholder="Password" type="password" name="password" [(ngModel)]="password" />
+        </md-input-container>
+      </p>
+
+      <p>
+        <md-input-container class="example-full-width">
+          <input required mdInput name="serverUrl" placeholder="Addresse du serveur ZWay" [(ngModel)]="serverUrl" />
+        </md-input-container>
+      </p>
+
+      <button md-fab class="md-fab-bottom-right"><md-icon>check</md-icon></button>
+    </form>
+  </div>
+</md-sidenav-container>
