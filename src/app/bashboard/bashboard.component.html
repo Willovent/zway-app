@@ -13,12 +13,9 @@
   </md-toolbar>
 
   <div class="app-content">
-
     <md-list>
       <md-list-item *ngFor="let device of devices">
         <p md-line> {{device.metrics.title}} </p>
-        <!--<md-slide-toggle></md-slide-toggle>-->
-
         <app-device [device]="device"></app-device>
       </md-list-item>
     </md-list>

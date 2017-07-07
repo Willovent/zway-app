@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if (!this.serverUrl.match(/:\d/)) {
       this.serverUrl += ':8083';
     }
-    this.settingsService.addConfiguration('defaultName', this.serverUrl, this.login, this.password);
+    this.settingsService.addConfiguration('defaultName', this.serverUrl, this.password, this.login);
     this.authenticationService.login(this.login, this.password);
   }
 }

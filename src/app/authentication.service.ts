@@ -22,8 +22,8 @@ export class AuthenticationService {
         login: username,
         password,
         rememberme: true
-      }).subscribe(x => {
-        const token = x.json().data.sid;
+      }).subscribe(response => {
+        const token = response.json().data.sid;
         localStorage['token'] = token;
         this.tokenSubject.next(token);
         this.router.navigateByUrl('/');
