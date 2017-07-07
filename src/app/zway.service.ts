@@ -9,13 +9,13 @@ export class ZwayService {
 
   constructor(private settingsService: SettingsService, private http: SecureHttp) { }
 
-  getDevice(): Observable<Device[]> {
+  getDevices(): Observable<Device[]> {
     return this.http.get(`${this.settingsService.serverUrl}/ZAutomation/api/v1/devices`).map(x => x.json().data.devices);
   }
 
   sendCommand(device: Device, command: string): Observable<void> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`${this.settingsService.serverUrl}/ZAutomation/api/v1/devices/${device.id}/command/${command}`).map(x => null);
+    return this.http.get(`${this.settingsService.serverUrl}/ZAutomation/api/v1/devices/${device.id}/command/${command}`)
+                    .map(x => null);
   }
 
 }

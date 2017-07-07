@@ -25,6 +25,9 @@ export class SettingsService {
   get password(): string {
     return this.currentConfig && this.currentConfig.password;
   }
+  get configName(): string {
+    return this.currentConfig && this.currentConfig.name;
+  }
 
   addConfiguration(name: string, serverUrl: string, password: string, username: string) {
     const config: IConfiguration = {
