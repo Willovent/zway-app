@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ZwayService, Device } from 'app/zway.service';
 
 @Component({
   selector: 'app-toggle-device',
   templateUrl: './toggle-device.component.html',
-  styleUrls: ['./toggle-device.component.scss']
+  styleUrls: ['./toggle-device.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleDeviceComponent implements OnInit {
 

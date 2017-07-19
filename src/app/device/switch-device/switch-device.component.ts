@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ZwayService, Device } from 'app/zway.service';
 import { MdSlideToggleChange } from '@angular/material/typings';
 
 @Component({
   selector: 'app-switch-device',
   templateUrl: './switch-device.component.html',
-  styleUrls: ['./switch-device.component.scss']
+  styleUrls: ['./switch-device.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SwitchDeviceComponent implements OnInit {
 

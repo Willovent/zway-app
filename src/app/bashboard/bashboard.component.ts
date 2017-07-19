@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ZwayService, Device } from '../zway.service';
 import { SettingsService } from 'app/settings.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-bashboard',
@@ -10,14 +11,14 @@ import { SettingsService } from 'app/settings.service';
 })
 export class BashboardComponent implements OnInit {
 
-  devices: Device[];
+  devices: Observable<Device>[];
   constructor(private settingsService: SettingsService, private router: Router, private zwayService: ZwayService) { }
 
   ngOnInit() {
     if (!this.settingsService.hasConfiguration) {
       this.router.navigate(['login']);
     } else {
-      this.zwayService.getDevices().subscribe(x => this.devices = x);
+      this.zwayService.devices.subscribe(x => this.devices = x);
     }
   }
 
