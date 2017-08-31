@@ -9,8 +9,8 @@ export class ZwayService {
 
   private updateTime: number;
   private localDevicesSubject: DevicesSubject = {};
-  private localDevicesObservable: Observable<Device>[] = [];
-  private devicesSubject = new BehaviorSubject<Observable<Device>[]>(this.localDevicesObservable);
+  private localDevicesObservable: IndexedOservableDevice[] = [];
+  private devicesSubject = new BehaviorSubject<IndexedOservableDevice[]>(this.localDevicesObservable);
   devices = this.devicesSubject.asObservable();
 
   constructor(private settingsService: SettingsService, private http: SecureHttp) {
@@ -26,6 +26,7 @@ export class ZwayService {
         return <Device[]>response.data.devices;
       })
       .subscribe(devices => {
+        this.handleDevicePosition(devices);
         if (this.addOrUpdateDevices(devices)) {
           this.devicesSubject.next(this.localDevicesObservable);
         }
@@ -44,12 +45,29 @@ export class ZwayService {
   private addOrUpdateDevice(device: Device): boolean {
     if (!this.localDevicesSubject[device.id]) {
       this.localDevicesSubject[device.id] = new BehaviorSubject<Device>(device);
-      this.localDevicesObservable.push(this.localDevicesSubject[device.id].asObservable());
+      this.localDevicesObservable.push({ device: this.localDevicesSubject[device.id].asObservable(), position: device.position });
       return true;
     } else {
       this.localDevicesSubject[device.id].next(device);
       return false;
     }
+  }
+
+  private handleDevicePosition(devices: Device[]) {
+    const localDevicesJson = localStorage[LocalStorageKeys.currentDevices(this.settingsService.configName)];
+    let localDevices: LocalStorageDevice[] = localDevicesJson ? JSON.parse(localDevicesJson) : [];
+    let maxPos = Math.max.apply(null, localDevices.filter(x => x.position).map(x => x.position));
+    // Pour eviter le -Infinity la première fois
+    maxPos = maxPos > 0 ? maxPos : 0;
+    devices.forEach(device => {
+      const localDevice = localDevices.find(x => x.id === device.id);
+      if (localDevice) {
+        device.position = localDevice.position;
+      } else {
+        localDevices.push({ id: device.id, position: ++maxPos, title: device.metrics.title });
+      }
+    });
+    localStorage[LocalStorageKeys.currentDevices(this.settingsService.configName)] = JSON.stringify(localDevices);
   }
 
   /**
@@ -90,4 +108,22 @@ export class Device {
   metrics: Metric;
   visibility: boolean;
   updateTime: number;
+  position: number;
+}
+
+class LocalStorageDevice {
+  id: string;
+  title: string;
+  position: number;
+}
+
+export class IndexedOservableDevice {
+  device: Observable<Device>;
+  position: number;
+}
+
+class LocalStorageKeys {
+  public static currentDevices(currentConfigName: string) {
+    return `devices-${currentConfigName}`;
+  }
 }

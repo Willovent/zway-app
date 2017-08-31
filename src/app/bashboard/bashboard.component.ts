@@ -18,7 +18,9 @@ export class BashboardComponent implements OnInit {
     if (!this.settingsService.hasConfiguration) {
       this.router.navigate(['login']);
     } else {
-      this.zwayService.devices.subscribe(x => this.devices = x);
+      this.zwayService.devices.subscribe(devices => {
+        this.devices = devices.sort((x,y) => x.position - y.position).map(x => x.device);
+      });
     }
   }
 

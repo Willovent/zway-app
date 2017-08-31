@@ -15,7 +15,7 @@
   <div class="app-content">
     <md-list>
       <md-list-item *ngFor="let device of devices">
-        <p md-line> {{(device | async).metrics.title}} </p>
+        <p md-line> {{(device | async).metrics.title}} {{(device | async).position}} </p>
         <app-device [device]="device | async"></app-device>
       </md-list-item>
     </md-list>
